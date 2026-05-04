@@ -26,8 +26,8 @@
 <body>
 <div class="page-container">
     <div class="lang-bar">
-        <button class="lang-btn active" onclick="switchLang('de')">DE</button>
-        <button class="lang-btn" onclick="switchLang('tr')">TR</button>
+        <button class="lang-btn active" onclick="switchLang('de', this)">DE</button>
+<button class="lang-btn" onclick="switchLang('tr', this)">TR</button>
     </div>
     <div class="hero-icon">💶</div>
     <div class="logo" id="mainTitle">Grundrente</div>
@@ -74,7 +74,7 @@
             privacy: "🔒 Veri saklanmaz · Paylaşılmaz · DSGVO uyumlu<br>PACDI Global hizmetidir"
         }
     };
-    function switchLang(lang) {
+    function switchLang(lang, el) {
         var t = L[lang];
         document.getElementById('mainTitle').innerText = t.title;
         document.getElementById('mainSub').innerText = t.sub;
@@ -84,8 +84,8 @@
         document.getElementById('btnInfo').innerText = t.btnInfo;
         document.getElementById('privacyNote').innerHTML = t.privacy;
         var btns = document.querySelectorAll('.lang-btn');
-        btns.forEach(function(b) { b.classList.remove('active'); });
-        event.target.classList.add('active');
+        for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+        el.classList.add('active');
     }
 </script>
 </body>
