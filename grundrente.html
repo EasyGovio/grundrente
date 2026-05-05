@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -21,36 +22,69 @@
         .btn-secondary { background:transparent; border:2px solid #F6B45F; color:#F6B45F; }
         .privacy-note { color:#6c8fb0; font-size:0.6rem; margin-top:16px; line-height:1.5; }
         .footer { text-align:center; font-size:0.6rem; color:#6c8fb0; margin-top:12px; }
-    </style>
+
+```
+    /* Modal Popup */
+    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4,22,46,0.95); z-index:1000; display:none; align-items:center; justify-content:center; }
+    .modal-overlay.active { display:flex; }
+    .modal-card { background:#1e2a3a; border-radius:32px; border:1px solid #F6B45F; padding:24px; max-width:320px; text-align:center; }
+    .modal-title { color:#F6B45F; font-size:1.2rem; font-weight:bold; margin-bottom:12px; }
+    .modal-text { color:#eaf2fb; font-size:0.85rem; margin-bottom:20px; }
+    .modal-close { background:#F6B45F; color:#04162E; border:none; padding:8px 24px; border-radius:40px; font-weight:bold; cursor:pointer; }
+</style>
+```
+
 </head>
 <body>
 <div class="page-container">
     <div class="lang-bar">
         <button class="lang-btn active" onclick="switchLang('de', this)">DE</button>
-<button class="lang-btn" onclick="switchLang('tr', this)">TR</button>
+        <button class="lang-btn" onclick="switchLang('tr', this)">TR</button>
     </div>
     <div class="hero-icon">💶</div>
     <div class="logo" id="mainTitle">Grundrente</div>
     <div class="subtitle" id="mainSub">Kostenloser Grundrente-Rechner</div>
 
-    <div class="info-box" id="infoBox1">
-        <strong>🧠 Wussten Sie schon?</strong><br>
-        Wenn Sie im Ausland gelebt, gearbeitet oder studiert haben, können diese Zeiten für Ihre Grundrente in Deutschland angerechnet werden. Viele Migranten wissen das nicht!
-    </div>
+```
+<div class="info-box" id="infoBox1">
+    <strong>🧠 Wussten Sie schon?</strong><br>
+    Wenn Sie im Ausland gelebt, gearbeitet oder studiert haben, können diese Zeiten für Ihre Grundrente in Deutschland angerechnet werden. Viele Migranten wissen das nicht!
+</div>
 
-    <div class="info-box" id="infoBox2">
-        <strong>🔒 100% Anonym & Sicher</strong><br>
-        Keine Speicherung Ihrer Daten. Keine Weitergabe an Dritte. Sie bleiben vollkommen anonym.
-    </div>
+<div class="info-box" id="infoBox2">
+    <strong>🔒 100% Anonym & Sicher</strong><br>
+    Keine Speicherung Ihrer Daten. Keine Weitergabe an Dritte. Sie bleiben vollkommen anonym.
+</div>
 
-    <a href="#" class="btn" id="btnCalc">📊 Jetzt Grundrente berechnen</a>
-    <a href="#" class="btn btn-secondary" id="btnInfo">📋 Mehr über Grundrente erfahren</a>
+<a href="#" class="btn" id="btnCalc" onclick="showModal('calc'); return false;">📊 Jetzt Grundrente berechnen</a>
+<a href="#" class="btn btn-secondary" id="btnInfo" onclick="showModal('info'); return false;">📋 Mehr über Grundrente erfahren</a>
 
-    <div class="privacy-note" id="privacyNote">
-        🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>
-        Ein Service von PACDI Global
+<div class="privacy-note" id="privacyNote">
+    🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>
+    Ein Service von PACDI Global
+</div>
+
+<!-- Impressum -->
+<div style="margin-top:20px; padding:12px; background:rgba(255,255,255,0.03); border-radius:20px; font-size:0.6rem; color:#6c8fb0; text-align:center; line-height:1.8;">
+    <strong style="color:#F6B45F;">Impressum</strong><br>
+    Verantwortlich: PACDI Global<br>
+    Kontakt: kontakt@grundrente.io<br>
+    Angaben gemäß § 5 TMG
+</div>
+
+<div class="footer">© 2026 grundrente.io · Powered by PACDI Global</div>
+```
+
+</div>
+
+<!-- Modal -->
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+        <div class="modal-title" id="modalTitle">🚧 Demnächst</div>
+        <div class="modal-text" id="modalText">Hesaplayıcı yakında aktif olacak!</div>
+        <button class="modal-close" onclick="hideModal()">Schließen</button>
     </div>
-    <div class="footer">© 2026 grundrente.io · Powered by PACDI Global</div>
 </div>
 
 <script>
@@ -62,7 +96,12 @@
             info2: "<strong>🔒 100% Anonym & Sicher</strong><br>Keine Speicherung Ihrer Daten. Keine Weitergabe an Dritte.",
             btnCalc: "📊 Jetzt Grundrente berechnen",
             btnInfo: "📋 Mehr über Grundrente erfahren",
-            privacy: "🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>Ein Service von PACDI Global"
+            privacy: "🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>Ein Service von PACDI Global",
+            modalCalcTitle: "🚧 Demnächst",
+            modalCalcText: "Der Grundrente-Rechner wird bald verfügbar sein!",
+            modalInfoTitle: "📋 Demnächst",
+            modalInfoText: "Mehr Informationen folgen bald!",
+            modalClose: "Schließen"
         },
         tr: {
             title: "Grundrente",
@@ -71,10 +110,19 @@
             info2: "<strong>🔒 %100 Anonim & Güvenli</strong><br>Verileriniz saklanmaz. Üçüncü taraflarla paylaşılmaz.",
             btnCalc: "📊 Grundrente Hesapla",
             btnInfo: "📋 Daha Fazla Bilgi",
-            privacy: "🔒 Veri saklanmaz · Paylaşılmaz · DSGVO uyumlu<br>PACDI Global hizmetidir"
+            privacy: "🔒 Veri saklanmaz · Paylaşılmaz · DSGVO uyumlu<br>PACDI Global hizmetidir",
+            modalCalcTitle: "🚧 Yakında",
+            modalCalcText: "Grundrente hesaplayıcı yakında aktif olacak!",
+            modalInfoTitle: "📋 Yakında",
+            modalInfoText: "Daha fazla bilgi yakında!",
+            modalClose: "Kapat"
         }
     };
+
+    var currentLang = 'de';
+
     function switchLang(lang, el) {
+        currentLang = lang;
         var t = L[lang];
         document.getElementById('mainTitle').innerText = t.title;
         document.getElementById('mainSub').innerText = t.sub;
@@ -87,6 +135,25 @@
         for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
         el.classList.add('active');
     }
+
+    function showModal(type) {
+        var t = L[currentLang];
+        var overlay = document.getElementById('modalOverlay');
+        if (type === 'calc') {
+            document.getElementById('modalTitle').innerText = t.modalCalcTitle;
+            document.getElementById('modalText').innerText = t.modalCalcText;
+        } else {
+            document.getElementById('modalTitle').innerText = t.modalInfoTitle;
+            document.getElementById('modalText').innerText = t.modalInfoText;
+        }
+        document.querySelector('.modal-close').innerText = t.modalClose;
+        overlay.classList.add('active');
+    }
+
+    function hideModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
 </script>
+
 </body>
 </html>
