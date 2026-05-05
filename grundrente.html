@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -23,17 +22,14 @@
         .privacy-note { color:#6c8fb0; font-size:0.6rem; margin-top:16px; line-height:1.5; }
         .footer { text-align:center; font-size:0.6rem; color:#6c8fb0; margin-top:12px; }
 
-```
-    /* Modal Popup */
-    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4,22,46,0.95); z-index:1000; display:none; align-items:center; justify-content:center; }
-    .modal-overlay.active { display:flex; }
-    .modal-card { background:#1e2a3a; border-radius:32px; border:1px solid #F6B45F; padding:24px; max-width:320px; text-align:center; }
-    .modal-title { color:#F6B45F; font-size:1.2rem; font-weight:bold; margin-bottom:12px; }
-    .modal-text { color:#eaf2fb; font-size:0.85rem; margin-bottom:20px; }
-    .modal-close { background:#F6B45F; color:#04162E; border:none; padding:8px 24px; border-radius:40px; font-weight:bold; cursor:pointer; }
-</style>
-```
-
+        /* Modal Popup - SAYFA DIŞINDA */
+        .modal-overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(4,22,46,0.95); z-index:9999; display:none; align-items:center; justify-content:center; }
+        .modal-overlay.active { display:flex; }
+        .modal-card { background:#1e2a3a; border-radius:32px; border:1px solid #F6B45F; padding:24px; max-width:320px; text-align:center; margin:16px; }
+        .modal-title { color:#F6B45F; font-size:1.2rem; font-weight:bold; margin-bottom:12px; }
+        .modal-text { color:#eaf2fb; font-size:0.85rem; margin-bottom:20px; }
+        .modal-close { background:#F6B45F; color:#04162E; border:none; padding:8px 24px; border-radius:40px; font-weight:bold; cursor:pointer; }
+    </style>
 </head>
 <body>
 <div class="page-container">
@@ -45,40 +41,36 @@
     <div class="logo" id="mainTitle">Grundrente</div>
     <div class="subtitle" id="mainSub">Kostenloser Grundrente-Rechner</div>
 
-```
-<div class="info-box" id="infoBox1">
-    <strong>🧠 Wussten Sie schon?</strong><br>
-    Wenn Sie im Ausland gelebt, gearbeitet oder studiert haben, können diese Zeiten für Ihre Grundrente in Deutschland angerechnet werden. Viele Migranten wissen das nicht!
+    <div class="info-box" id="infoBox1">
+        <strong>🧠 Wussten Sie schon?</strong><br>
+        Wenn Sie im Ausland gelebt, gearbeitet oder studiert haben, können diese Zeiten für Ihre Grundrente in Deutschland angerechnet werden. Viele Migranten wissen das nicht!
+    </div>
+
+    <div class="info-box" id="infoBox2">
+        <strong>🔒 100% Anonym & Sicher</strong><br>
+        Keine Speicherung Ihrer Daten. Keine Weitergabe an Dritte. Sie bleiben vollkommen anonym.
+    </div>
+
+    <a href="#" class="btn" id="btnCalc" onclick="showModal('calc'); return false;">📊 Jetzt Grundrente berechnen</a>
+    <a href="#" class="btn btn-secondary" id="btnInfo" onclick="showModal('info'); return false;">📋 Mehr über Grundrente erfahren</a>
+
+    <div class="privacy-note" id="privacyNote">
+        🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>
+        Ein Service von PACDI Global
+    </div>
+
+    <!-- Impressum -->
+    <div style="margin-top:20px; padding:12px; background:rgba(255,255,255,0.03); border-radius:20px; font-size:0.6rem; color:#6c8fb0; text-align:center; line-height:1.8;">
+        <strong style="color:#F6B45F;">Impressum</strong><br>
+        Verantwortlich: PACDI Global<br>
+        Kontakt: kontakt@grundrente.io<br>
+        Angaben gemäß § 5 TMG
+    </div>
+
+    <div class="footer">© 2026 grundrente.io · Powered by PACDI Global</div>
 </div>
 
-<div class="info-box" id="infoBox2">
-    <strong>🔒 100% Anonym & Sicher</strong><br>
-    Keine Speicherung Ihrer Daten. Keine Weitergabe an Dritte. Sie bleiben vollkommen anonym.
-</div>
-
-<a href="#" class="btn" id="btnCalc" onclick="showModal('calc'); return false;">📊 Jetzt Grundrente berechnen</a>
-<a href="#" class="btn btn-secondary" id="btnInfo" onclick="showModal('info'); return false;">📋 Mehr über Grundrente erfahren</a>
-
-<div class="privacy-note" id="privacyNote">
-    🔒 Keine Datenspeicherung · Keine Weitergabe · DSGVO-konform<br>
-    Ein Service von PACDI Global
-</div>
-
-<!-- Impressum -->
-<div style="margin-top:20px; padding:12px; background:rgba(255,255,255,0.03); border-radius:20px; font-size:0.6rem; color:#6c8fb0; text-align:center; line-height:1.8;">
-    <strong style="color:#F6B45F;">Impressum</strong><br>
-    Verantwortlich: PACDI Global<br>
-    Kontakt: kontakt@grundrente.io<br>
-    Angaben gemäß § 5 TMG
-</div>
-
-<div class="footer">© 2026 grundrente.io · Powered by PACDI Global</div>
-```
-
-</div>
-
-<!-- Modal -->
-
+<!-- Modal SAYFA DIŞINDA -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-card">
         <div class="modal-title" id="modalTitle">🚧 Demnächst</div>
