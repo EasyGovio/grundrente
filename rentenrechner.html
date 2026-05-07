@@ -128,6 +128,10 @@ function calculateDRV() {
 
     var html = '';
     html += '<tr><td><strong>Rentenpunkte aus Arbeit</strong></td><td>' + punkteArbeit.toFixed(1) + ' Punkte</td><td>' + arbeitJahre + ' Jahre × 1 Punkt/Jahr</td></tr>';
+    html += '<tr><td colspan="3" style="font-size:0.75rem; color:#F6B45F; padding:4px 10px; background:rgba(246,180,95,0.05);">
+    ⚠️ Hinweis: 1 Punkt/Jahr = Durchschnittsverdiener (~45.358 €/Jahr in 2026). 
+    Bei niedrigerem Einkommen entsprechend weniger Punkte (z.B. 0.5-0.8).
+</td></tr>
     html += '<tr><td><strong>Rentenpunkte aus Kindern (ab 1992)</strong></td><td>' + punkteKinderAb92.toFixed(1) + ' Punkte</td><td>' + kinderAb92 + ' Kinder × 3 Jahre</td></tr>';
     html += '<tr><td><strong>Rentenpunkte aus Kindern (vor 1992)</strong></td><td>' + punkteKinderVor92.toFixed(1) + ' Punkte</td><td>' + kinderVor92 + ' Kinder × 2,5 Jahre</td></tr>';
     html += '<tr><td><strong>Gesamt Rentenpunkte</strong></td><td><strong>' + gesamtPunkte.toFixed(1) + ' Punkte</strong></td><td></td></tr>';
