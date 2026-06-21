@@ -22,6 +22,13 @@
         .privacy-note { color:#6c8fb0; font-size:0.6rem; margin-top:16px; line-height:1.5; }
         .footer { text-align:center; font-size:0.6rem; color:#6c8fb0; margin-top:12px; }
 
+        /* Blog Bereich */
+        #blogSection { margin-top:24px; text-align:left; }
+        #blogSection .blog-title { color:#F6B45F; font-size:1.1rem; font-weight:bold; margin-bottom:12px; }
+        #blogSection .blog-list { display:flex; flex-direction:column; gap:8px; }
+        #blogSection .blog-item { background:rgba(246,180,95,0.08); border:1px solid rgba(246,180,95,0.2); border-radius:16px; padding:12px; color:#eaf2fb; font-size:0.8rem; text-decoration:none; display:block; transition:0.15s; }
+        #blogSection .blog-item:active { transform:scale(0.98); }
+
         /* Modal Popup - SAYFA DIŞINDA */
         .modal-overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(4,22,46,0.95); z-index:9999; display:none; align-items:center; justify-content:center; }
         .modal-overlay.active { display:flex; }
@@ -70,7 +77,9 @@
         Angaben gemäß § 5 TMG
     </div>
 
-    <div class="footer">© 2026 grundrente.io · Powered by PACDI Global</div>
+    <!-- Blog-Bereich (vor dem Footer) -->
+    <div id="blogSection"></div>
+    <div class="footer">© 2026 grundrente.io · Powered by PACDI Global · <a href="/legal.html" style="color:#6c8fb0;">Impressum & Datenschutz</a></div>
 </div>
 
 <!-- Modal SAYFA DIŞINDA -->
@@ -96,7 +105,15 @@
             modalCalcText: "Der Grundrente-Rechner wird bald verfügbar sein!",
             modalInfoTitle: "📋 Demnächst",
             modalInfoText: "Mehr Informationen folgen bald!",
-            modalClose: "Schließen"
+            modalClose: "Schließen",
+            blog_title: "📘 Ratgeber Artikel",
+            articles: [
+                { url:"/blog/turkiye-borclanmasi-almanya-emeklilik.html", text:"Wie kann ich mit türkischen Beitragszeiten in Deutschland in Rente gehen?" },
+                { url:"/blog/kesin-donus-emeklilik-maasi.html", text:"Wird die Rente bei endgültiger Rückkehr in die Türkei gekürzt?" },
+                { url:"/blog/grundrente-basvuru-nereye.html", text:"Wo beantragt man die Grundrente?" },
+                { url:"/blog/malulen-emeklilik-grundrente.html", text:"Können Erwerbsminderungsrentner Grundrente erhalten?" },
+                { url:"/blog/eksik-prim-gunleri-geri-donus.html", text:"Können fehlende Rentenbeitragsjahre nachträglich eingezahlt werden?" }
+            ]
         },
         tr: {
             title: "Grundrente",
@@ -110,11 +127,33 @@
             modalCalcText: "Grundrente hesaplayıcı yakında aktif olacak!",
             modalInfoTitle: "📋 Yakında",
             modalInfoText: "Daha fazla bilgi yakında!",
-            modalClose: "Kapat"
+            modalClose: "Kapat",
+            blog_title: "📘 Rehber Makaleler",
+            articles: [
+                { url:"/blog/turkiye-borclanmasi-almanya-emeklilik.html", text:"Türkiye borçlanması ile Almanya'dan nasıl emekli olunur?" },
+                { url:"/blog/kesin-donus-emeklilik-maasi.html", text:"Kesin dönüşte emeklilik maaşı kesilir mi?" },
+                { url:"/blog/grundrente-basvuru-nereye.html", text:"Grundrente başvurusu nereye yapılır?" },
+                { url:"/blog/malulen-emeklilik-grundrente.html", text:"Malulen emeklilik alanlar Grundrente alabilir mi?" },
+                { url:"/blog/eksik-prim-gunleri-geri-donus.html", text:"Eksik prim günleri geriye dönük ödenebilir mi?" }
+            ]
         }
     };
 
     var currentLang = 'de';
+
+    function renderBlog(lang) {
+        var t = L[lang];
+        var section = document.getElementById('blogSection');
+        if (!section) return;
+        var html = '<div class="blog-title">' + t.blog_title + '</div>';
+        html += '<div class="blog-list">';
+        for (var i = 0; i < t.articles.length; i++) {
+            var art = t.articles[i];
+            html += '<a href="' + art.url + '" class="blog-item">' + art.text + '</a>';
+        }
+        html += '</div>';
+        section.innerHTML = html;
+    }
 
     function switchLang(lang, el) {
         currentLang = lang;
@@ -129,6 +168,7 @@
         var btns = document.querySelectorAll('.lang-btn');
         for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
         el.classList.add('active');
+        renderBlog(lang);
     }
 
     function showModal(type) {
@@ -148,7 +188,9 @@
     function hideModal() {
         document.getElementById('modalOverlay').classList.remove('active');
     }
-</script>
 
+    // Sayfa yüklendiğinde varsayılan dil (de) ile blog'u oluştur
+    renderBlog('de');
+</script>
 </body>
 </html>
