@@ -8,20 +8,28 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: inject-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   inject:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run inject script
         run: python3 inject.py
 
-      - name: Commit changes
+      - name: Commit and push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "PACDI Bot"
           git add -A
-          git diff --staged --quiet || (git commit -m "Auto: Analytics + AdSense + Canonical + Mobile Header Fix" && git push)
+          git diff --staged --quiet || (
+            git commit -m "Auto: Analytics + AdSense + Canonical + Mobile Header Fix" &&
+            git pull --rebase origin main &&
+            git push
+          )
